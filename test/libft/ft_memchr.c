@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamraka <atamraka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/05 13:57:20 by atamraka          #+#    #+#             */
-/*   Updated: 2022/01/13 15:16:48 by atamraka         ###   ########.fr       */
+/*   Created: 2021/11/24 11:01:56 by atamraka          #+#    #+#             */
+/*   Updated: 2022/01/01 21:16:08 by atamraka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+/*
+** locate byte in byte string
+** returns a pointer to the byte located, or,
+** NULL if no such byte exist within n bytes
+*/
 
-# include <fcntl.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include "libft/libft.h"
+#include "libft.h"
 
-int	get_next_line(const int fd, char **line);
+void	*ft_memchr(const void *s, int c, size_t n)
+{
+	size_t			i;
+	unsigned char	*copy;
 
-# define BUFF_SIZE 32
-#endif
+	i = 0;
+	copy = (unsigned char *)s;
+	while (i < n)
+	{
+		if (copy[i] == (unsigned char)c)
+			return (&copy[i]);
+		i++;
+	}
+	return (NULL);
+}

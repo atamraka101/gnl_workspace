@@ -6,7 +6,7 @@
 /*   By: atamraka <atamraka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 13:57:20 by atamraka          #+#    #+#             */
-/*   Updated: 2022/01/13 15:16:48 by atamraka         ###   ########.fr       */
+/*   Updated: 2022/01/12 13:05:16 by atamraka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 # define GET_NEXT_LINE_H
 
 # include <fcntl.h>
-# include <sys/types.h>
-# include <sys/uio.h>
+//# include <sys/types.h>
+//# include <sys/uio.h>
+# include <unistd.h> //checking needed.. if forbidden or not??
+# include <stdlib.h>
+//# include <string.h> //for size_t, needs check after final to confirm work for libft functions
 # include "libft/libft.h"
 
-int	get_next_line(const int fd, char **line);
+//function prototypes
 
 # define BUFF_SIZE 32
 #endif

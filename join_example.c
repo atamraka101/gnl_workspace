@@ -12,8 +12,11 @@ int main()
 
 	ft_join(list, output);
 	printf("output: %s\n", *output);
-	if(output)
+	if(output) {
+		free(*output);
 		free(output);
+	}
+
 }
 
 int ft_join(char **list, char **output)
