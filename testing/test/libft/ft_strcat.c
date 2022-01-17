@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamraka <atamraka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/05 13:57:20 by atamraka          #+#    #+#             */
-/*   Updated: 2022/01/17 10:06:11 by atamraka         ###   ########.fr       */
+/*   Created: 2021/11/29 21:26:39 by atamraka          #+#    #+#             */
+/*   Updated: 2021/12/12 11:18:17 by atamraka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+/*
+** concatenate strings
+** append a copy of the null-terminated string s2 to the end of the
+** null-terminated string s1, then add a terminating `\0'
+** returns pointer s1
+*/
 
-# include <sys/types.h>
-# include <sys/uio.h>
-# include "libft/libft.h"
+#include "libft.h"
 
-int	get_next_line(const int fd, char **line);
+char	*ft_strcat(char *s1, const char *s2)
+{
+	int	i;
+	int	j;
 
-# define FD_MAX 4096
-# define BUFF_SIZE 135
-
-#endif
+	i = 0;
+	j = 0;
+	while (s1[i])
+		i++;
+	while (s2[j])
+		s1[i++] = s2[j++];
+	s1[i] = '\0';
+	return (s1);
+}

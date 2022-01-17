@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamraka <atamraka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/05 13:57:20 by atamraka          #+#    #+#             */
-/*   Updated: 2022/01/17 10:06:11 by atamraka         ###   ########.fr       */
+/*   Created: 2021/12/17 10:44:06 by atamraka          #+#    #+#             */
+/*   Updated: 2021/12/17 10:58:20 by atamraka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+/*
+** Outputs the string s to the file descriptor fd followed by a ’\n’.
+** Param. #1 The string to output.
+** Param. #2 The file descriptor.
+*/
 
-# include <sys/types.h>
-# include <sys/uio.h>
-# include "libft/libft.h"
+#include "libft.h"
 
-int	get_next_line(const int fd, char **line);
-
-# define FD_MAX 4096
-# define BUFF_SIZE 135
-
-#endif
+void	ft_putendl_fd(char const *s, int fd)
+{
+	ft_putstr_fd(s, fd);
+	ft_putchar_fd('\n', fd);
+}

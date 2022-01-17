@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamraka <atamraka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/05 13:57:20 by atamraka          #+#    #+#             */
-/*   Updated: 2022/01/17 10:06:11 by atamraka         ###   ########.fr       */
+/*   Created: 2021/11/25 14:28:01 by atamraka          #+#    #+#             */
+/*   Updated: 2022/01/01 21:38:08 by atamraka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+/*
+** copy strings
+** copy the string src to dst (including the terminating `\0' character.)
+*/
 
-# include <sys/types.h>
-# include <sys/uio.h>
-# include "libft/libft.h"
+#include "libft.h"
 
-int	get_next_line(const int fd, char **line);
+char	*ft_strcpy(char *dst, const char *src)
+{
+	int	i;
 
-# define FD_MAX 4096
-# define BUFF_SIZE 135
-
-#endif
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
+}

@@ -1,25 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamraka <atamraka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/05 13:57:20 by atamraka          #+#    #+#             */
-/*   Updated: 2022/01/17 10:06:11 by atamraka         ###   ########.fr       */
+/*   Created: 2022/01/01 17:33:09 by atamraka          #+#    #+#             */
+/*   Updated: 2022/01/01 17:33:13 by atamraka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+/*
+** Outputs the integer n to the standard output.
+** Param. #1 The integer to output.
+*/
 
-# include <sys/types.h>
-# include <sys/uio.h>
-# include "libft/libft.h"
+#include "libft.h"
 
-int	get_next_line(const int fd, char **line);
+void	ft_putnbr_fd(int n, int fd)
+{
+	unsigned int	nbr;
+	int				sign;
 
-# define FD_MAX 4096
-# define BUFF_SIZE 135
-
-#endif
+	sign = 1;
+	if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		sign = -1;
+	}
+	nbr = n * sign;
+	if (nbr >= 10)
+	{
+		ft_putnbr_fd(nbr / 10, fd);
+		ft_putnbr_fd(nbr % 10, fd);
+	}
+	else
+	{
+		ft_putchar_fd(nbr + '0', fd);
+	}
+}

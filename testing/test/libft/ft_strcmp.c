@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamraka <atamraka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/05 13:57:20 by atamraka          #+#    #+#             */
-/*   Updated: 2022/01/17 10:06:11 by atamraka         ###   ########.fr       */
+/*   Created: 2021/12/02 20:06:09 by atamraka          #+#    #+#             */
+/*   Updated: 2021/12/02 21:05:49 by atamraka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <sys/types.h>
-# include <sys/uio.h>
-# include "libft/libft.h"
+int	ft_strcmp(const char *ss1, const char *ss2)
+{
+	int				i;
+	unsigned char	*s1;
+	unsigned char	*s2;
 
-int	get_next_line(const int fd, char **line);
-
-# define FD_MAX 4096
-# define BUFF_SIZE 135
-
-#endif
+	s1 = (unsigned char *)ss1;
+	s2 = (unsigned char *)ss2;
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] && s2[i])
+		i++;
+	return (s1[i] - s2[i]);
+}

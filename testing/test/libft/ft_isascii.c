@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamraka <atamraka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/05 13:57:20 by atamraka          #+#    #+#             */
-/*   Updated: 2022/01/17 10:06:11 by atamraka         ###   ########.fr       */
+/*   Created: 2021/12/03 12:20:08 by atamraka          #+#    #+#             */
+/*   Updated: 2021/12/17 21:27:32 by atamraka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+/*
+** tests for an ASCII character,
+** which is any character between 0 and octal 0177(127 dec) inclusive.
+*/
 
-# include <sys/types.h>
-# include <sys/uio.h>
-# include "libft/libft.h"
+#include "libft.h"
 
-int	get_next_line(const int fd, char **line);
-
-# define FD_MAX 4096
-# define BUFF_SIZE 135
-
-#endif
+int	ft_isascii(int c)
+{
+	if (c >= 0 && c <= 127)
+		return (1);
+	else
+		return (0);
+}

@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamraka <atamraka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/05 13:57:20 by atamraka          #+#    #+#             */
-/*   Updated: 2022/01/17 10:06:11 by atamraka         ###   ########.fr       */
+/*   Created: 2021/12/16 14:11:55 by atamraka          #+#    #+#             */
+/*   Updated: 2021/12/16 14:13:58 by atamraka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <sys/types.h>
-# include <sys/uio.h>
-# include "libft/libft.h"
+char	*ft_strndup(char const *s, size_t n)
+{
+	char	*str;
 
-int	get_next_line(const int fd, char **line);
-
-# define FD_MAX 4096
-# define BUFF_SIZE 135
-
-#endif
+	str = (char *)malloc(sizeof(char) * n + 1);
+	if (str == NULL)
+		return (NULL);
+	str = ft_strncpy(str, s, n);
+	str[n] = '\0';
+	return (str);
+}

@@ -1,25 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamraka <atamraka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/05 13:57:20 by atamraka          #+#    #+#             */
-/*   Updated: 2022/01/17 10:06:11 by atamraka         ###   ########.fr       */
+/*   Created: 2021/11/25 16:18:43 by atamraka          #+#    #+#             */
+/*   Updated: 2021/12/17 11:35:08 by atamraka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+/*
+** copies len characters from src to dst.
+** src < len, then remainning dst filled with '\0' characters
+** returns dst
+*/
 
-# include <sys/types.h>
-# include <sys/uio.h>
-# include "libft/libft.h"
+#include "libft.h"
 
-int	get_next_line(const int fd, char **line);
+char	*ft_strncpy(char *dst, const char *src, size_t len)
+{
+	int	i;
 
-# define FD_MAX 4096
-# define BUFF_SIZE 135
-
-#endif
+	i = 0;
+	while (src[i])
+	{
+		if (len != 0)
+		{
+			dst[i] = src[i];
+			len--;
+		}
+		i++;
+	}
+	while (len != 0)
+	{
+		dst[i++] = '\0';
+		len--;
+	}
+	return (dst);
+}

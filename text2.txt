@@ -1,0 +1,9 @@
+Bonus part
+The project get_next_line is straight forward and leaves very little room for bonuses,
+but I am sure that you have a lot of imagination. If you ace perfectly the mandatory
+part, then by all means complete this bonus part to go furher. I repeat, no bonus will be
+taken into consideration if the mandatory part isn’t perfect.
+• To succeed get_next_line with a single static variable.
+• To be able to manage multiple file descriptor with your get_next_line. For example, if the file descriptors 3, 4 and 5 are accessible for reading, then you can call
+get_next_line once on 3, once on 4, once again on 3 then once on 5 etc. without
+losing the reading thread on each of the descriptors.

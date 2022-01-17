@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamraka <atamraka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/05 13:57:20 by atamraka          #+#    #+#             */
-/*   Updated: 2022/01/17 10:06:11 by atamraka         ###   ########.fr       */
+/*   Created: 2021/11/13 13:59:22 by atamraka          #+#    #+#             */
+/*   Updated: 2021/11/21 22:06:09 by atamraka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+/*
+** write zeroes to a byte string
+** he bzero() function writes n zeroed bytes to the string s.
+** If n is zero, bzero() does nothing.
+** it doesn't return anything
+*/
 
-# include <sys/types.h>
-# include <sys/uio.h>
-# include "libft/libft.h"
+#include "libft.h"
 
-int	get_next_line(const int fd, char **line);
+void	ft_bzero(void *s, size_t n)
+{
+	size_t			i;
+	unsigned char	*a;
 
-# define FD_MAX 4096
-# define BUFF_SIZE 135
-
-#endif
+	i = 0;
+	a = (unsigned char *)s;
+	if (n == 0)
+		return ;
+	while (i < n)
+	{
+		a[i] = 0;
+		i++;
+	}
+}

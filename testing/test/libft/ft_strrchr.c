@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamraka <atamraka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/05 13:57:20 by atamraka          #+#    #+#             */
-/*   Updated: 2022/01/17 10:06:11 by atamraka         ###   ########.fr       */
+/*   Created: 2021/12/01 13:58:37 by atamraka          #+#    #+#             */
+/*   Updated: 2021/12/28 15:30:45 by atamraka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+/*
+** it locates the last occurrence of c
+** return a pointer to the located character,
+** or NULL if the character does not appear in the string.
+*/
 
-# include <sys/types.h>
-# include <sys/uio.h>
-# include "libft/libft.h"
+#include "libft.h"
 
-int	get_next_line(const int fd, char **line);
+char	*ft_strrchr(const char *s, int c)
+{
+	int	len;
 
-# define FD_MAX 4096
-# define BUFF_SIZE 135
-
-#endif
+	len = ft_strlen(s);
+	while (len >= 0)
+	{
+		if (s[len] == (char)c)
+			return ((char *)&s[len]);
+		len--;
+	}
+	return (NULL);
+}

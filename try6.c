@@ -1,7 +1,7 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
-void ft_update_line_buf(char **saved, char *temp)
+void ft_update_line_buff(char **saved, char *temp)
 {
 	char *temp2;
 
@@ -52,7 +52,7 @@ int	get_next_line(const int fd, char **line)
 	result = 1;
 	while (result)
 	{
-		memset(temp, '\0', BUFF_SIZE+1);
+		ft_memset(temp, '\0', BUFF_SIZE + 1);//
 		result = read(fd, temp, BUFF_SIZE);
 		if (result == 0)
 		{
@@ -61,7 +61,7 @@ int	get_next_line(const int fd, char **line)
 			*line = NULL;
 			break;
 		}
-		ft_update_line_buf(&saved, temp);
+		ft_update_line_buff(&saved, temp);
 		if (ft_strchr(saved, '\n'))
 		{
 			ft_split_lines(line, &saved);
