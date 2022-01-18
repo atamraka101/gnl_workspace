@@ -1,5 +1,6 @@
 #include "get_next_line.h"
 #include <stdio.h>
+#include <fcntl.h>
 
 void	ft_splitter(char **line, char **saved)
 {
