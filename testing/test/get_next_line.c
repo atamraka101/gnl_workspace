@@ -5,18 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamraka <atamraka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/05 13:57:02 by atamraka          #+#    #+#             */
-/*   Updated: 2022/01/17 22:17:47 by atamraka         ###   ########.fr       */
+/*   Created: 2022/01/18 10:34:34 by atamraka          #+#    #+#             */
+/*   Updated: 2022/01/18 12:39:40 by atamraka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int extract_line_from_buffer(char **line_buff, char **line)
+int	extract_line_from_buffer(char **line_buff, char **line)
 {
-	int i;
-	int buff_len;
-	char *temp;
+	int		i;
+	int		buff_len;
+	char	*temp;
 
 	buff_len = ft_strlen(*line_buff);
 	i = 0;
@@ -27,7 +27,7 @@ int extract_line_from_buffer(char **line_buff, char **line)
 	*line = ft_strsub(*line_buff, 0, i);
 	if (buff_len - i > 0)
 	{
-		temp = ft_strsub(*line_buff, i + 1, buff_len - i);
+		temp = ft_strsub(*line_buff, i + 1, buff_len - 1);
 		ft_strdel(line_buff);
 		*line_buff = ft_strdup(temp);
 		if (temp)
@@ -36,9 +36,9 @@ int extract_line_from_buffer(char **line_buff, char **line)
 	return (1);
 }
 
-void ft_update_line_buff(char **line_buff, char *data)
+void	ft_update_line_buff(char **line_buff, char *data)
 {
-	char *temp;
+	char	*temp;
 
 	if (!(*line_buff))
 		*line_buff = ft_strdup(data);
@@ -50,17 +50,19 @@ void ft_update_line_buff(char **line_buff, char *data)
 	}
 }
 
-int read_line(int fd, char **line_buff, char **line)
+int	read_line(int fd, char **line_buff, char **line)
 {
-	int ret;
-	char data[BUFF_SIZE + 1];
+	int		ret;
+	char	data[BUFF_SIZE + 1];
 
-	while ((ret = read(fd, data, BUFF_SIZE)) > 0)
+	ret = read(fd, data, BUFF_SIZE);
+	while (ret > 0)
 	{
 		data[ret] = '\0';
 		ft_update_line_buff(&line_buff[fd], data);
 		if (extract_line_from_buffer(&line_buff[fd], line))
 			return (1);
+		ret = read(fd, data, BUFF_SIZE);
 	}
 	if (ret == 0 && line_buff[fd] && (ft_strlen(line_buff[fd]) > 0))
 	{
@@ -68,19 +70,23 @@ int read_line(int fd, char **line_buff, char **line)
 		ft_strdel(&line_buff[fd]);
 		return (1);
 	}
+	else
+		*line = NULL;
 	ft_strdel(&line_buff[fd]);
 	return (ret);
 }
-int get_next_line(const int fd, char **line)
+
+int	get_next_line(const int fd, char **line)
 {
-	int ret;
+	int			ret;
 	static char	*fd_line_buf[FD_MAX];
 
 	if (fd < 0 || !line || fd >= FD_MAX || BUFF_SIZE < 1)
 		return (-1);
 	if (fd_line_buf[fd] != NULL)
 	{
-		if ((ret = extract_line_from_buffer(&fd_line_buf[fd], line)) == 1)
+		ret = extract_line_from_buffer(&fd_line_buf[fd], line);
+		if (ret)
 			return (1);
 	}
 	return (read_line(fd, fd_line_buf, line));

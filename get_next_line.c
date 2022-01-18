@@ -5,94 +5,89 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamraka <atamraka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/05 13:57:02 by atamraka          #+#    #+#             */
-/*   Updated: 2022/01/16 17:01:58 by atamraka         ###   ########.fr       */
+/*   Created: 2022/01/18 10:34:34 by atamraka          #+#    #+#             */
+/*   Updated: 2022/01/18 12:39:18 by atamraka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_splitter(char **line, char **saved)
+int	extract_line_from_buffer(char **line_buff, char **line)
 {
-	char	*copy;
 	int		i;
-	int		len;
-	char	*str;
+	int		buff_len;
+	char	*temp;
 
+	buff_len = ft_strlen(*line_buff);
 	i = 0;
-	str = *saved;
-	while (str[i] != '\n')
+	while ((*line_buff)[i] && (*line_buff)[i] != '\n')
 		i++;
-	*line = ft_strsub(*saved, 0, i);
-	len = ft_strlen(*saved) - i;
-	copy = ft_strsub(*saved, i + 1, len);
-	free(*saved);
-	*saved = ft_strdup(copy);
-	if (copy)
-		free(copy);
+	if (buff_len == i)
+		return (0);
+	*line = ft_strsub(*line_buff, 0, i);
+	if (buff_len - i > 0)
+	{
+		temp = ft_strsub(*line_buff, i + 1, buff_len - 1);
+		ft_strdel(line_buff);
+		*line_buff = ft_strdup(temp);
+		if (temp)
+			free(temp);
+	}
+	return (1);
 }
 
-void	ft_update_line_buff(char **line_buf, char *data)
+void	ft_update_line_buff(char **line_buff, char *data)
 {
 	char	*temp;
 
-	if (!*line_buf)
-		*line_buf = ft_strdup(data);
+	if (!(*line_buff))
+		*line_buff = ft_strdup(data);
 	else
 	{
-		temp = ft_strjoin(*line_buf, data);
-		free(*line_buf);
-		*line_buf = temp;
+		temp = ft_strjoin(*line_buff, data);
+		free(*line_buff);
+		*line_buff = temp;
 	}
 }
 
-void	ft_split_lines(char **line, char **line_buf)
+int	read_line(int fd, char **line_buff, char **line)
 {
-	char	**splitted;
+	int		ret;
+	char	data[BUFF_SIZE + 1];
 
-	splitted = ft_strsplit(*line_buf, '\n');
-	free(*line_buf);
-	if (splitted[0])
+	ret = read(fd, data, BUFF_SIZE);
+	while (ret > 0)
 	{
-		*line = ft_strdup(splitted[0]);
-		free(splitted[0]);
+		data[ret] = '\0';
+		ft_update_line_buff(&line_buff[fd], data);
+		if (extract_line_from_buffer(&line_buff[fd], line))
+			return (1);
+		ret = read(fd, data, BUFF_SIZE);
 	}
-	if (splitted[1])
+	if (ret == 0 && line_buff[fd] && (ft_strlen(line_buff[fd]) > 0))
 	{
-		*line_buf = ft_strdup(splitted[1]);
-		free(splitted[1]);
+		*line = ft_strdup(line_buff[fd]);
+		ft_strdel(&line_buff[fd]);
+		return (1);
 	}
-	if (splitted)
-	{
-		free(splitted);
-	}
+	else
+		*line = NULL;
+	ft_strdel(&line_buff[fd]);
+	return (ret);
 }
 
 int	get_next_line(const int fd, char **line)
 {
-	char		data[BUFF_SIZE + 1];
-	int			result;
+	int			ret;
 	static char	*fd_line_buf[FD_MAX];
 
-	if (fd < 0 || !line || fd > FD_MAX || BUFF_SIZE < 1)
+	if (fd < 0 || !line || fd >= FD_MAX || BUFF_SIZE < 1)
 		return (-1);
-	result = 1;
-	*line = NULL;
-	while (result)
+	if (fd_line_buf[fd] != NULL)
 	{
-		if (fd_line_buf[fd] && ft_strchr(fd_line_buf[fd], '\n'))
-		{
-			ft_splitter(line, &fd_line_buf[fd]);
-			break ;
-		}
-		else
-		{
-			ft_memset(data, '\0', BUFF_SIZE + 1);
-			result = read(fd, data, BUFF_SIZE);
-			ft_update_line_buff(&fd_line_buf[fd], data);
-		}
+		ret = extract_line_from_buffer(&fd_line_buf[fd], line);
+		if (ret)
+			return (1);
 	}
-	if (result)
-		return (1);
-	return (0);
+	return (read_line(fd, fd_line_buf, line));
 }

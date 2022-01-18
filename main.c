@@ -1,5 +1,6 @@
 #include "get_next_line.h"
 #include <stdio.h>
+#include <fcntl.h>
 
 int main(void)
 {
@@ -27,7 +28,6 @@ int main(void)
 		printf("FD1 : %d \n", fd1);
 		printf("FD2 : %d \n", fd2);
 		printf("FD3 : %d \n", fd3);
-
 		result = get_next_line(fd1, line);
 		if (result)
 			printf("FD1 line: %s\n", *line);
@@ -40,32 +40,24 @@ int main(void)
 		if (result)
 			printf("FD3 line: %s\n", *line);
 		free(*line);
-		/*result = get_next_line(fd1, line );
+		result = get_next_line(fd1, line );
 		if (result)
 			printf("FD1 line 2: %s\n", *line);
 		free(*line);
 		result = get_next_line(fd2, line );
 		if (result)
-			printf("FD2 line 2: %s\n", *line);*/
+			printf("FD2 line 2: %s\n", *line);
 		free(*line);
-		while (get_next_line(fd3, line) > 0)
+		result = 1;
+		while (result)
 		{
+			result = get_next_line(fd3, line);
 			printf("Line %d: %s\n", i, *line);
 			free(*line);
+			*line = NULL;
 			i++;
 		}
-		/*while (get_next_line(fd2, line) > 0)
-		{
-			printf("Line %d: %s\n", i, *line);
-			free(*line);
-			i++;
-		}
-		while (get_next_line(fd1, line) > 0)
-		{
-			printf("Line %d: %s\n", i, *line);
-			free(*line);
-			i++;
-		}*/
+
 	}
 	if (line)
 	{
